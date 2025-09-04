@@ -3,10 +3,12 @@ import cors from 'cors'
 import 'dotenv/config'
 import actorRoute from './routes/actor'
 import movieRoute from './routes/movie'
+const hateoas = require('express-hateoas-links')
 
 const app = express()
 app.use(express.json())
 app.use(cors())
+app.use(hateoas)
 app.use('/api', (req, res) => {
   res.sendStatus(200)
 })

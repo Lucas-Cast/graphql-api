@@ -12,8 +12,9 @@ export default class ActorRepository {
   }
 
   static async createActor(data: ActorRequest) {
-    actor.push({ id: new Date().getTime(), ...data })
-    return actor[actor.length - 1]
+    const newActor = { id: new Date().getTime(), ...data }
+    actor.push(newActor)
+    return newActor
   }
 
   static async updateActor(id: number, data: ActorRequest) {
