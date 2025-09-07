@@ -17,7 +17,7 @@ export const getMovieWithActors = (
 
 export const deleteOrUpdateMovieActorsByMovieId = (
   movieActor: MovieActorEntity[],
-  movieId: number,
+  movieId: string,
   relationsToUpdate: MovieActorEntity[] = []
 ) => {
   const filteredMovieActorRelations = movieActor.filter(ma => ma.movieId !== movieId)

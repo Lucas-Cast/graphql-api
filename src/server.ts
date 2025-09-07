@@ -1,20 +1,22 @@
-import express from 'express'
-import cors from 'cors'
+import { ApolloServer } from 'apollo-server'
+import { typeDefs } from './schema/typeDefs'
 import 'dotenv/config'
-import actorRoute from './routes/actor'
-import movieRoute from './routes/movie'
-const hateoas = require('express-hateoas-links')
+import { context } from './context'
+import { resolvers } from './resolvers'
 
-const app = express()
-app.use(express.json())
-app.use(cors())
-app.use(hateoas)
-app.use('/api', (req, res) => {
-  res.sendStatus(200)
-})
-app.use(actorRoute)
-app.use(movieRoute)
+async function startServer() {
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context,
+  })
 
-app.listen(process.env.API_PORT, () => {
-  console.log(`Server is running on port ${process.env.API_PORT}`)
+  const { url } = await server.listen({ port: process.env.PORT || 4000 })
+
+  console.log(`🚀 Server running at ${url}`)
+  console.log(`📊 GraphQL Playground available at ${url}`)
+}
+
+startServer().catch(error => {
+  console.error('Error starting server:', error)
 })

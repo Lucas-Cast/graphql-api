@@ -1,4 +1,4 @@
-export interface ActorResponse {
+export interface ActorEntity {
   id: string
   name: string
   birthYear: number

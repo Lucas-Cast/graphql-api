@@ -1,24 +1,25 @@
+import { UpdateActorInput } from '../generated/graphql'
 import { ActorRequest } from './models/request'
 import ActorRepository from './repository'
 
 export default class ActorService {
-  static async getAllActors() {
+  async getAllActors() {
     return ActorRepository.getAllActors()
   }
 
-  static async getActorById(id: number) {
+  async getActorById(id: string) {
     return ActorRepository.getActorById(id)
   }
 
-  static async createActor(data: ActorRequest) {
+  async createActor(data: ActorRequest) {
     return ActorRepository.createActor(data)
   }
 
-  static async updateActor(id: number, data: ActorRequest) {
+  async updateActor(id: string, data: UpdateActorInput) {
     return ActorRepository.updateActor(id, data)
   }
 
-  static async deleteActor(id: number) {
+  async deleteActor(id: string) {
     return ActorRepository.deleteActor(id)
   }
 }

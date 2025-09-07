@@ -1,20 +1,20 @@
-import { MovieRequest, MovieUpdateRequest } from './models/request'
+import { CreateMovieInput, UpdateMovieInput } from '../generated/graphql'
 import MovieRepository from './repository'
 
 export class MovieService {
-  static async getAllMovies() {
+  async getAllMovies() {
     return MovieRepository.getAllMovies()
   }
-  static async getMovieById(id: number) {
+  async getMovieById(id: string) {
     return MovieRepository.getMovieById(id)
   }
-  static async createMovie(data: MovieRequest) {
+  async createMovie(data: CreateMovieInput) {
     return MovieRepository.createMovie(data)
   }
-  static async updateMovie(id: number, data: MovieUpdateRequest) {
+  async updateMovie(id: string, data: UpdateMovieInput) {
     return MovieRepository.updateMovie(id, data)
   }
-  static async deleteMovie(id: number) {
+  async deleteMovie(id: string) {
     return MovieRepository.deleteMovie(id)
   }
 }

@@ -1,5 +1,5 @@
 export interface MovieEntity {
-  id: number
+  id: string
   title: string
   director: string
   releaseYear: number

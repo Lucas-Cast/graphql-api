@@ -1,1 +1,1 @@
-export const getFirstOrDefault = <T>(array: T[]) => array[0] || undefined
+export const getFirstOrDefault = <T>(array: T[]) => array[0] || null

@@ -1,5 +1,5 @@
 export interface MovieActorEntity {
-  id: number
-  movieId: number
-  actorId: number
+  id: string
+  movieId: string
+  actorId: string
 }

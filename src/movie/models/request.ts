@@ -2,11 +2,11 @@ export interface MovieRequest {
   title: string
   director: string
   releaseYear: number
-  actorsIds?: number[]
+  actorsIds?: string[]
 }
 
 export interface MovieByIdRequest {
-  id: number
+  id: string
 }
 
 export type MovieUpdateRequest = MovieRequest & MovieByIdRequest
