@@ -3,23 +3,26 @@ import { ActorRequest } from './models/request'
 import ActorRepository from './repository'
 
 export default class ActorService {
+  constructor(private actorRepository: ActorRepository) {
+    this.actorRepository = actorRepository
+  }
   async getAllActors() {
-    return ActorRepository.getAllActors()
+    return this.actorRepository.getAllActors()
   }
 
   async getActorById(id: string) {
-    return ActorRepository.getActorById(id)
+    return this.actorRepository.getActorById(id)
   }
 
   async createActor(data: ActorRequest) {
-    return ActorRepository.createActor(data)
+    return this.actorRepository.createActor(data)
   }
 
   async updateActor(id: string, data: UpdateActorInput) {
-    return ActorRepository.updateActor(id, data)
+    return this.actorRepository.updateActor(id, data)
   }
 
   async deleteActor(id: string) {
-    return ActorRepository.deleteActor(id)
+    return this.actorRepository.deleteActor(id)
   }
 }

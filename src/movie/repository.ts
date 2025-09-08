@@ -5,21 +5,26 @@ import { deleteOrUpdateMovieActorsByMovieId, getMovieWithActors } from '../utils
 import { getFirstOrDefault } from '../utils/array-utils'
 import { MovieEntity } from './entities/movie'
 import { CreateMovieInput, UpdateMovieInput } from '../generated/graphql'
+import { PrismaClient } from '@prisma/client'
 
 export default class MovieRepository {
-  static async getAllMovies() {
+  constructor(private prisma: PrismaClient) {
+    this.prisma = prisma
+  }
+
+  async getAllMovies() {
     const movieWithActors = getMovieWithActors(movie, movieActor, actor)
     return movieWithActors
   }
 
-  static async getMovieById(id: string) {
+  async getMovieById(id: string) {
     const movieById = movie.find(m => m.id === id)
     if (!movieById) return null
     const movieWithActors = getMovieWithActors([movieById], movieActor, actor)
     return getFirstOrDefault(movieWithActors)
   }
 
-  static async createMovie(data: CreateMovieInput) {
+  async createMovie(data: CreateMovieInput) {
     const { actors: actorsIds, ...movieData } = data
     const newMovie = { id: new Date().getTime().toString(), ...movieData }
     const newMovieActors = (actorsIds || []).map(actorId => ({
@@ -32,7 +37,7 @@ export default class MovieRepository {
     return { ...newMovie, actors: actor.filter(a => actorsIds?.includes(a.id)) } as MovieEntity
   }
 
-  static async updateMovie(id: string, data: UpdateMovieInput) {
+  async updateMovie(id: string, data: UpdateMovieInput) {
     const { actors: actorsIds, ...movieData } = data
     const index = movie.findIndex(m => m.id === id)
     if (index !== -1) {
@@ -48,7 +53,7 @@ export default class MovieRepository {
     return null
   }
 
-  static async deleteMovie(id: string): Promise<MovieEntity | null> {
+  async deleteMovie(id: string): Promise<MovieEntity | null> {
     const index = movie.findIndex(m => m.id === id)
     if (index === -1) return null
     deleteOrUpdateMovieActorsByMovieId(movieActor, id)

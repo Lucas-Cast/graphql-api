@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client'
 import { actor } from '../db/actor'
 import { movieActor } from '../db/movie-actor'
 import { UpdateActorInput } from '../generated/graphql'
@@ -5,21 +6,24 @@ import { ActorEntity } from './entities/actor'
 import { ActorRequest } from './models/request'
 
 export default class ActorRepository {
-  static async getAllActors() {
+  constructor(private prisma: PrismaClient) {
+    this.prisma = prisma
+  }
+  async getAllActors() {
     return actor
   }
 
-  static async getActorById(id: string) {
+  async getActorById(id: string) {
     return actor.find(a => a.id === id) ?? null
   }
 
-  static async createActor(data: ActorRequest) {
+  async createActor(data: ActorRequest) {
     const newActor = { id: new Date().getTime().toString(), ...data }
     actor.push(newActor)
     return newActor
   }
 
-  static async updateActor(id: string, data: UpdateActorInput) {
+  async updateActor(id: string, data: UpdateActorInput) {
     const index = actor.findIndex(a => a.id === id)
     if (index !== -1) {
       actor[index] = { id, ...actor[index], ...data } as ActorEntity
@@ -28,7 +32,7 @@ export default class ActorRepository {
     return null
   }
 
-  static async deleteActor(id: string) {
+  async deleteActor(id: string) {
     const index = actor.findIndex(a => a.id === id)
     if (index !== -1) {
       const filteredMovieActors = movieActor.filter(ma => ma.actorId !== id)

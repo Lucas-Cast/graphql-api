@@ -2,19 +2,22 @@ import { CreateMovieInput, UpdateMovieInput } from '../generated/graphql'
 import MovieRepository from './repository'
 
 export class MovieService {
+  constructor(private movieRepository: MovieRepository) {
+    this.movieRepository = movieRepository
+  }
   async getAllMovies() {
-    return MovieRepository.getAllMovies()
+    return this.movieRepository.getAllMovies()
   }
   async getMovieById(id: string) {
-    return MovieRepository.getMovieById(id)
+    return this.movieRepository.getMovieById(id)
   }
   async createMovie(data: CreateMovieInput) {
-    return MovieRepository.createMovie(data)
+    return this.movieRepository.createMovie(data)
   }
   async updateMovie(id: string, data: UpdateMovieInput) {
-    return MovieRepository.updateMovie(id, data)
+    return this.movieRepository.updateMovie(id, data)
   }
   async deleteMovie(id: string) {
-    return MovieRepository.deleteMovie(id)
+    return this.movieRepository.deleteMovie(id)
   }
 }
