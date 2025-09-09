@@ -285,7 +285,7 @@ export type MovieCreateInput = {
   director?: string | null
   releaseYear?: string | null
   genres?: Prisma.GenreCreateNestedManyWithoutMoviesInput
-  actors?: Prisma.ActorCreateNestedManyWithoutMoviesInput
+  actors?: Prisma.ActorCreateNestedManyWithoutMovieInput
 }
 
 export type MovieUncheckedCreateInput = {
@@ -296,7 +296,7 @@ export type MovieUncheckedCreateInput = {
   director?: string | null
   releaseYear?: string | null
   genres?: Prisma.GenreUncheckedCreateNestedManyWithoutMoviesInput
-  actors?: Prisma.ActorUncheckedCreateNestedManyWithoutMoviesInput
+  actors?: Prisma.ActorUncheckedCreateNestedManyWithoutMovieInput
 }
 
 export type MovieUpdateInput = {
@@ -306,7 +306,7 @@ export type MovieUpdateInput = {
   director?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   releaseYear?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   genres?: Prisma.GenreUpdateManyWithoutMoviesNestedInput
-  actors?: Prisma.ActorUpdateManyWithoutMoviesNestedInput
+  actors?: Prisma.ActorUpdateManyWithoutMovieNestedInput
 }
 
 export type MovieUncheckedUpdateInput = {
@@ -317,7 +317,7 @@ export type MovieUncheckedUpdateInput = {
   director?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   releaseYear?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   genres?: Prisma.GenreUncheckedUpdateManyWithoutMoviesNestedInput
-  actors?: Prisma.ActorUncheckedUpdateManyWithoutMoviesNestedInput
+  actors?: Prisma.ActorUncheckedUpdateManyWithoutMovieNestedInput
 }
 
 export type MovieCreateManyInput = {
@@ -391,6 +391,11 @@ export type MovieOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type MovieNullableScalarRelationFilter = {
+  is?: Prisma.MovieWhereInput | null
+  isNot?: Prisma.MovieWhereInput | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
@@ -449,42 +454,20 @@ export type MovieUncheckedUpdateManyWithoutGenresNestedInput = {
   deleteMany?: Prisma.MovieScalarWhereInput | Prisma.MovieScalarWhereInput[]
 }
 
-export type MovieCreateNestedManyWithoutActorsInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutActorsInput, Prisma.MovieUncheckedCreateWithoutActorsInput> | Prisma.MovieCreateWithoutActorsInput[] | Prisma.MovieUncheckedCreateWithoutActorsInput[]
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutActorsInput | Prisma.MovieCreateOrConnectWithoutActorsInput[]
-  connect?: Prisma.MovieWhereUniqueInput | Prisma.MovieWhereUniqueInput[]
+export type MovieCreateNestedOneWithoutActorsInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutActorsInput, Prisma.MovieUncheckedCreateWithoutActorsInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutActorsInput
+  connect?: Prisma.MovieWhereUniqueInput
 }
 
-export type MovieUncheckedCreateNestedManyWithoutActorsInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutActorsInput, Prisma.MovieUncheckedCreateWithoutActorsInput> | Prisma.MovieCreateWithoutActorsInput[] | Prisma.MovieUncheckedCreateWithoutActorsInput[]
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutActorsInput | Prisma.MovieCreateOrConnectWithoutActorsInput[]
-  connect?: Prisma.MovieWhereUniqueInput | Prisma.MovieWhereUniqueInput[]
-}
-
-export type MovieUpdateManyWithoutActorsNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutActorsInput, Prisma.MovieUncheckedCreateWithoutActorsInput> | Prisma.MovieCreateWithoutActorsInput[] | Prisma.MovieUncheckedCreateWithoutActorsInput[]
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutActorsInput | Prisma.MovieCreateOrConnectWithoutActorsInput[]
-  upsert?: Prisma.MovieUpsertWithWhereUniqueWithoutActorsInput | Prisma.MovieUpsertWithWhereUniqueWithoutActorsInput[]
-  set?: Prisma.MovieWhereUniqueInput | Prisma.MovieWhereUniqueInput[]
-  disconnect?: Prisma.MovieWhereUniqueInput | Prisma.MovieWhereUniqueInput[]
-  delete?: Prisma.MovieWhereUniqueInput | Prisma.MovieWhereUniqueInput[]
-  connect?: Prisma.MovieWhereUniqueInput | Prisma.MovieWhereUniqueInput[]
-  update?: Prisma.MovieUpdateWithWhereUniqueWithoutActorsInput | Prisma.MovieUpdateWithWhereUniqueWithoutActorsInput[]
-  updateMany?: Prisma.MovieUpdateManyWithWhereWithoutActorsInput | Prisma.MovieUpdateManyWithWhereWithoutActorsInput[]
-  deleteMany?: Prisma.MovieScalarWhereInput | Prisma.MovieScalarWhereInput[]
-}
-
-export type MovieUncheckedUpdateManyWithoutActorsNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutActorsInput, Prisma.MovieUncheckedCreateWithoutActorsInput> | Prisma.MovieCreateWithoutActorsInput[] | Prisma.MovieUncheckedCreateWithoutActorsInput[]
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutActorsInput | Prisma.MovieCreateOrConnectWithoutActorsInput[]
-  upsert?: Prisma.MovieUpsertWithWhereUniqueWithoutActorsInput | Prisma.MovieUpsertWithWhereUniqueWithoutActorsInput[]
-  set?: Prisma.MovieWhereUniqueInput | Prisma.MovieWhereUniqueInput[]
-  disconnect?: Prisma.MovieWhereUniqueInput | Prisma.MovieWhereUniqueInput[]
-  delete?: Prisma.MovieWhereUniqueInput | Prisma.MovieWhereUniqueInput[]
-  connect?: Prisma.MovieWhereUniqueInput | Prisma.MovieWhereUniqueInput[]
-  update?: Prisma.MovieUpdateWithWhereUniqueWithoutActorsInput | Prisma.MovieUpdateWithWhereUniqueWithoutActorsInput[]
-  updateMany?: Prisma.MovieUpdateManyWithWhereWithoutActorsInput | Prisma.MovieUpdateManyWithWhereWithoutActorsInput[]
-  deleteMany?: Prisma.MovieScalarWhereInput | Prisma.MovieScalarWhereInput[]
+export type MovieUpdateOneWithoutActorsNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutActorsInput, Prisma.MovieUncheckedCreateWithoutActorsInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutActorsInput
+  upsert?: Prisma.MovieUpsertWithoutActorsInput
+  disconnect?: Prisma.MovieWhereInput | boolean
+  delete?: Prisma.MovieWhereInput | boolean
+  connect?: Prisma.MovieWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutActorsInput, Prisma.MovieUpdateWithoutActorsInput>, Prisma.MovieUncheckedUpdateWithoutActorsInput>
 }
 
 export type MovieCreateWithoutGenresInput = {
@@ -493,7 +476,7 @@ export type MovieCreateWithoutGenresInput = {
   title: string
   director?: string | null
   releaseYear?: string | null
-  actors?: Prisma.ActorCreateNestedManyWithoutMoviesInput
+  actors?: Prisma.ActorCreateNestedManyWithoutMovieInput
 }
 
 export type MovieUncheckedCreateWithoutGenresInput = {
@@ -503,7 +486,7 @@ export type MovieUncheckedCreateWithoutGenresInput = {
   title: string
   director?: string | null
   releaseYear?: string | null
-  actors?: Prisma.ActorUncheckedCreateNestedManyWithoutMoviesInput
+  actors?: Prisma.ActorUncheckedCreateNestedManyWithoutMovieInput
 }
 
 export type MovieCreateOrConnectWithoutGenresInput = {
@@ -563,48 +546,15 @@ export type MovieCreateOrConnectWithoutActorsInput = {
   create: Prisma.XOR<Prisma.MovieCreateWithoutActorsInput, Prisma.MovieUncheckedCreateWithoutActorsInput>
 }
 
-export type MovieUpsertWithWhereUniqueWithoutActorsInput = {
-  where: Prisma.MovieWhereUniqueInput
+export type MovieUpsertWithoutActorsInput = {
   update: Prisma.XOR<Prisma.MovieUpdateWithoutActorsInput, Prisma.MovieUncheckedUpdateWithoutActorsInput>
   create: Prisma.XOR<Prisma.MovieCreateWithoutActorsInput, Prisma.MovieUncheckedCreateWithoutActorsInput>
+  where?: Prisma.MovieWhereInput
 }
 
-export type MovieUpdateWithWhereUniqueWithoutActorsInput = {
-  where: Prisma.MovieWhereUniqueInput
+export type MovieUpdateToOneWithWhereWithoutActorsInput = {
+  where?: Prisma.MovieWhereInput
   data: Prisma.XOR<Prisma.MovieUpdateWithoutActorsInput, Prisma.MovieUncheckedUpdateWithoutActorsInput>
-}
-
-export type MovieUpdateManyWithWhereWithoutActorsInput = {
-  where: Prisma.MovieScalarWhereInput
-  data: Prisma.XOR<Prisma.MovieUpdateManyMutationInput, Prisma.MovieUncheckedUpdateManyWithoutActorsInput>
-}
-
-export type MovieUpdateWithoutGenresInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  director?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  releaseYear?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  actors?: Prisma.ActorUpdateManyWithoutMoviesNestedInput
-}
-
-export type MovieUncheckedUpdateWithoutGenresInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  director?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  releaseYear?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  actors?: Prisma.ActorUncheckedUpdateManyWithoutMoviesNestedInput
-}
-
-export type MovieUncheckedUpdateManyWithoutGenresInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  director?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  releaseYear?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type MovieUpdateWithoutActorsInput = {
@@ -626,7 +576,26 @@ export type MovieUncheckedUpdateWithoutActorsInput = {
   genres?: Prisma.GenreUncheckedUpdateManyWithoutMoviesNestedInput
 }
 
-export type MovieUncheckedUpdateManyWithoutActorsInput = {
+export type MovieUpdateWithoutGenresInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  director?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseYear?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actors?: Prisma.ActorUpdateManyWithoutMovieNestedInput
+}
+
+export type MovieUncheckedUpdateWithoutGenresInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  director?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseYear?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actors?: Prisma.ActorUncheckedUpdateManyWithoutMovieNestedInput
+}
+
+export type MovieUncheckedUpdateManyWithoutGenresInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string

@@ -704,7 +704,8 @@ export const ActorScalarFieldEnum = {
   name: 'name',
   birthYear: 'birthYear',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  movieId: 'movieId'
 } as const
 
 export type ActorScalarFieldEnum = (typeof ActorScalarFieldEnum)[keyof typeof ActorScalarFieldEnum]

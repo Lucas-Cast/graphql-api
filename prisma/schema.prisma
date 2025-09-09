@@ -31,7 +31,8 @@ model Actor {
     id        Int      @id @default(autoincrement())
     name      String
     birthYear Int?
-    movies    Movie[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    Movie     Movie?   @relation(fields: [movieId], references: [id])
+    movieId   Int?
 }

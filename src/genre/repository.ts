@@ -12,7 +12,7 @@ export class GenreRepository {
     return await this.prisma.genre.findUnique({ where: { id }, include: { movies: true } })
   }
   async create(input: GenreCreateInput) {
-    return await this.prisma.genre.create({ data: input })
+    return await this.prisma.genre.create({ data: input, include: { movies: true } })
   }
   async update(id: number, input: GenreUpdateInput) {
     return await this.prisma.genre.update({ where: { id }, data: input, include: { movies: true } })
