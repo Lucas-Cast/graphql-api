@@ -1,6 +1,5 @@
-import { UpdateActorInput } from '../generated/graphql'
+import { CreateActorInput, UpdateActorInput } from '../generated/graphql'
 import { ActorUpdateInput } from '../generated/prisma-client/models'
-import { ActorRequest } from './models/request'
 import ActorRepository from './repository'
 
 export default class ActorService {
@@ -15,7 +14,7 @@ export default class ActorService {
     return this.actorRepository.getActorById(parseInt(id))
   }
 
-  async createActor(data: ActorRequest) {
+  async createActor(data: CreateActorInput) {
     return this.actorRepository.createActor(data)
   }
 
