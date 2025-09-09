@@ -7,3 +7,14 @@ generates:
       - "typescript-resolvers"
     config:
       contextType: "../context#GraphQLContext"
+      mappers:
+        Genre: "./prisma-client/client#Genre as PrismaGenre"
+        Movie: "./prisma-client/client#Movie as PrismaMovie"
+        Actor: "./prisma-client/client#Actor as PrismaActor"
+
+      useIndexSignature: true
+      
+      scalars:
+        DateTime: Date
+
+      strictScalars: true

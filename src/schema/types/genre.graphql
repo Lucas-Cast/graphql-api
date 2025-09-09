@@ -1,0 +1,26 @@
+type Genre {
+    id: ID!
+    name: String!
+    movies: [Movie!]
+}
+
+input CreateGenreInput {
+    name: String!
+    movies: [ID!]
+}
+
+input UpdateGenreInput {
+    name: String
+    movies: [ID!]
+}
+
+type Query {
+    genres: [Genre!]
+    genre(id: ID!): Genre
+}
+
+type Mutation {
+    createGenre(input: CreateGenreInput!): Genre!
+    updateGenre(id: ID!, input: UpdateGenreInput!): Genre
+    deleteGenre(id: ID!): Genre
+}

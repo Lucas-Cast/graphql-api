@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { Genre as PrismaGenre, Movie as PrismaMovie, Actor as PrismaActor } from './prisma-client/client';
 import { GraphQLContext } from '../context';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -29,18 +30,31 @@ export type CreateActorInput = {
   name: Scalars['String']['input'];
 };
 
+export type CreateGenreInput = {
+  movies?: InputMaybe<Array<Scalars['ID']['input']>>;
+  name: Scalars['String']['input'];
+};
+
 export type CreateMovieInput = {
-  __typename?: 'CreateMovieInput';
-  actors?: Maybe<Array<Scalars['ID']['output']>>;
-  director: Scalars['String']['output'];
-  releaseYear: Scalars['Int']['output'];
-  title: Scalars['String']['output'];
+  actors?: InputMaybe<Array<Scalars['ID']['input']>>;
+  director: Scalars['String']['input'];
+  genres?: InputMaybe<Array<Scalars['ID']['input']>>;
+  releaseYear: Scalars['Int']['input'];
+  title: Scalars['String']['input'];
+};
+
+export type Genre = {
+  __typename?: 'Genre';
+  id: Scalars['ID']['output'];
+  movies?: Maybe<Array<Movie>>;
+  name: Scalars['String']['output'];
 };
 
 export type Movie = {
   __typename?: 'Movie';
   actors?: Maybe<Array<Actor>>;
   director: Scalars['String']['output'];
+  genres?: Maybe<Array<Genre>>;
   id: Scalars['ID']['output'];
   releaseYear: Scalars['Int']['output'];
   title: Scalars['String']['output'];
@@ -49,10 +63,13 @@ export type Movie = {
 export type Mutation = {
   __typename?: 'Mutation';
   createActor: Actor;
+  createGenre: Genre;
   createMovie: Movie;
   deleteActor?: Maybe<Actor>;
+  deleteGenre?: Maybe<Genre>;
   deleteMovie?: Maybe<Movie>;
   updateActor?: Maybe<Actor>;
+  updateGenre?: Maybe<Genre>;
   updateMovie?: Maybe<Movie>;
 };
 
@@ -62,12 +79,22 @@ export type MutationCreateActorArgs = {
 };
 
 
+export type MutationCreateGenreArgs = {
+  input: CreateGenreInput;
+};
+
+
 export type MutationCreateMovieArgs = {
   input: CreateMovieInput;
 };
 
 
 export type MutationDeleteActorArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteGenreArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -83,6 +110,12 @@ export type MutationUpdateActorArgs = {
 };
 
 
+export type MutationUpdateGenreArgs = {
+  id: Scalars['ID']['input'];
+  input: UpdateGenreInput;
+};
+
+
 export type MutationUpdateMovieArgs = {
   id: Scalars['ID']['input'];
   input: UpdateMovieInput;
@@ -92,12 +125,19 @@ export type Query = {
   __typename?: 'Query';
   actor?: Maybe<Actor>;
   actors?: Maybe<Array<Actor>>;
+  genre?: Maybe<Genre>;
+  genres?: Maybe<Array<Genre>>;
   movie?: Maybe<Movie>;
   movies?: Maybe<Array<Movie>>;
 };
 
 
 export type QueryActorArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryGenreArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -111,15 +151,21 @@ export type UpdateActorInput = {
   name?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type UpdateMovieInput = {
-  __typename?: 'UpdateMovieInput';
-  actors?: Maybe<Array<Scalars['ID']['output']>>;
-  director?: Maybe<Scalars['String']['output']>;
-  releaseYear?: Maybe<Scalars['Int']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
+export type UpdateGenreInput = {
+  movies?: InputMaybe<Array<Scalars['ID']['input']>>;
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type UpdateMovieInput = {
+  actors?: InputMaybe<Array<Scalars['ID']['input']>>;
+  director?: InputMaybe<Scalars['String']['input']>;
+  genres?: InputMaybe<Array<Scalars['ID']['input']>>;
+  releaseYear?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
 
+export type WithIndex<TObject> = TObject & Record<string, any>;
+export type ResolversObject<TObject> = WithIndex<TObject>;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -191,87 +237,90 @@ export type DirectiveResolverFn<TResult = Record<PropertyKey, never>, TParent = 
 
 
 /** Mapping between all available schema types and the resolvers types */
-export type ResolversTypes = {
-  Actor: ResolverTypeWrapper<Actor>;
+export type ResolversTypes = ResolversObject<{
+  Actor: ResolverTypeWrapper<PrismaActor>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CreateActorInput: CreateActorInput;
-  CreateMovieInput: ResolverTypeWrapper<CreateMovieInput>;
+  CreateGenreInput: CreateGenreInput;
+  CreateMovieInput: CreateMovieInput;
+  Genre: ResolverTypeWrapper<PrismaGenre>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  Movie: ResolverTypeWrapper<Movie>;
+  Movie: ResolverTypeWrapper<PrismaMovie>;
   Mutation: ResolverTypeWrapper<Record<PropertyKey, never>>;
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   UpdateActorInput: UpdateActorInput;
-  UpdateMovieInput: ResolverTypeWrapper<UpdateMovieInput>;
-};
+  UpdateGenreInput: UpdateGenreInput;
+  UpdateMovieInput: UpdateMovieInput;
+}>;
 
 /** Mapping between all available schema types and the resolvers parents */
-export type ResolversParentTypes = {
-  Actor: Actor;
+export type ResolversParentTypes = ResolversObject<{
+  Actor: PrismaActor;
   Boolean: Scalars['Boolean']['output'];
   CreateActorInput: CreateActorInput;
+  CreateGenreInput: CreateGenreInput;
   CreateMovieInput: CreateMovieInput;
+  Genre: PrismaGenre;
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
-  Movie: Movie;
+  Movie: PrismaMovie;
   Mutation: Record<PropertyKey, never>;
   Query: Record<PropertyKey, never>;
   String: Scalars['String']['output'];
   UpdateActorInput: UpdateActorInput;
+  UpdateGenreInput: UpdateGenreInput;
   UpdateMovieInput: UpdateMovieInput;
-};
+}>;
 
-export type ActorResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Actor'] = ResolversParentTypes['Actor']> = {
+export type ActorResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Actor'] = ResolversParentTypes['Actor']> = ResolversObject<{
   birthYear?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-};
+}>;
 
-export type CreateMovieInputResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['CreateMovieInput'] = ResolversParentTypes['CreateMovieInput']> = {
-  actors?: Resolver<Maybe<Array<ResolversTypes['ID']>>, ParentType, ContextType>;
-  director?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  releaseYear?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-};
+export type GenreResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Genre'] = ResolversParentTypes['Genre']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  movies?: Resolver<Maybe<Array<ResolversTypes['Movie']>>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+}>;
 
-export type MovieResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Movie'] = ResolversParentTypes['Movie']> = {
+export type MovieResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Movie'] = ResolversParentTypes['Movie']> = ResolversObject<{
   actors?: Resolver<Maybe<Array<ResolversTypes['Actor']>>, ParentType, ContextType>;
   director?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  genres?: Resolver<Maybe<Array<ResolversTypes['Genre']>>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   releaseYear?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-};
+}>;
 
-export type MutationResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+export type MutationResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createActor?: Resolver<ResolversTypes['Actor'], ParentType, ContextType, RequireFields<MutationCreateActorArgs, 'input'>>;
+  createGenre?: Resolver<ResolversTypes['Genre'], ParentType, ContextType, RequireFields<MutationCreateGenreArgs, 'input'>>;
   createMovie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationCreateMovieArgs, 'input'>>;
   deleteActor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType, RequireFields<MutationDeleteActorArgs, 'id'>>;
+  deleteGenre?: Resolver<Maybe<ResolversTypes['Genre']>, ParentType, ContextType, RequireFields<MutationDeleteGenreArgs, 'id'>>;
   deleteMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationDeleteMovieArgs, 'id'>>;
   updateActor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType, RequireFields<MutationUpdateActorArgs, 'id' | 'input'>>;
+  updateGenre?: Resolver<Maybe<ResolversTypes['Genre']>, ParentType, ContextType, RequireFields<MutationUpdateGenreArgs, 'id' | 'input'>>;
   updateMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationUpdateMovieArgs, 'id' | 'input'>>;
-};
+}>;
 
-export type QueryResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+export type QueryResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType, RequireFields<QueryActorArgs, 'id'>>;
   actors?: Resolver<Maybe<Array<ResolversTypes['Actor']>>, ParentType, ContextType>;
+  genre?: Resolver<Maybe<ResolversTypes['Genre']>, ParentType, ContextType, RequireFields<QueryGenreArgs, 'id'>>;
+  genres?: Resolver<Maybe<Array<ResolversTypes['Genre']>>, ParentType, ContextType>;
   movie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<QueryMovieArgs, 'id'>>;
   movies?: Resolver<Maybe<Array<ResolversTypes['Movie']>>, ParentType, ContextType>;
-};
+}>;
 
-export type UpdateMovieInputResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['UpdateMovieInput'] = ResolversParentTypes['UpdateMovieInput']> = {
-  actors?: Resolver<Maybe<Array<ResolversTypes['ID']>>, ParentType, ContextType>;
-  director?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  releaseYear?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-};
-
-export type Resolvers<ContextType = GraphQLContext> = {
+export type Resolvers<ContextType = GraphQLContext> = ResolversObject<{
   Actor?: ActorResolvers<ContextType>;
-  CreateMovieInput?: CreateMovieInputResolvers<ContextType>;
+  Genre?: GenreResolvers<ContextType>;
   Movie?: MovieResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  UpdateMovieInput?: UpdateMovieInputResolvers<ContextType>;
-};
+}>;
 
