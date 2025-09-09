@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec ts-node ./src/server.ts",
+    "start": "nodemon --exec tsx ./src/server.ts",
     "codegen": "graphql-codegen --config codegen.yml",
     "codegen:watch": "graphql-codegen --config codegen.yml --watch",
     "prisma:generate": "prisma generate"
@@ -41,7 +41,7 @@
     "jiti": "^2.5.1",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.20.5",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.41.0"
   }

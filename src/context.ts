@@ -1,9 +1,9 @@
-import { PrismaClient } from '@prisma/client'
 import ActorService from './actor/service'
 import { MovieService } from './movie/service'
 import { Request } from 'express'
 import { ServiceFactory } from './core/service-factory'
 import { GenreService } from './genre/service'
+import { PrismaClient } from './generated/prisma-client/client'
 
 export interface Context extends Request {
   movieService: MovieService
